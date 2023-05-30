@@ -1,0 +1,33 @@
+{% extends 'videos/base.html' %}
+
+{% block content %}
+  <div class="video">
+    <h2>{{ VideoDetail_data.title }}</h2>
+    <p>{{ VideoDetail_data.description }}</p>
+    <p>再生回数: {{ VideoDetail_data.views }}</p>
+    <p>Uploaded by {{ VideoDetail_data.user.username }} on {{ VideoDetail_data.uploaded_at }}</p>
+    {% if user.is_authenticated %}
+        {% if user != video.user %}
+            <form method="post" action="{% url 'channel_subscribe' user.pk %}">
+            {% csrf_token %}
+            <button type="submit">チャンネル登録</button>
+            </form>
+        {% endif %}
+    {% endif %}
+    <iframe width="560" height="315" src="{{ VideoDetail_data.url }}" frameborder="0" allowfullscreen></iframe>
+    <form method="post" action="{% url 'add_comment' user.pk %}">
+        {% csrf_token %}
+        <textarea name="comment_text"></textarea>
+        <button type="submit">コメントする</button>
+    </form>
+    
+      <h2>コメント一覧</h2>
+      {% for Comment in Comment_data %}
+        <p>{{ Comment.user.username }} - {{ Comment.text }}</p>
+      {% empty %}
+        <p>コメントはまだありません。</p>
+      {% endfor %}
+
+  </div>
+
+{% endblock %}

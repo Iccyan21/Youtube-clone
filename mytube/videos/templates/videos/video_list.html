@@ -1,0 +1,28 @@
+{% extends 'videos/base.html' %}
+
+{% block content %}
+<a href="">
+
+  <div class="container">
+    <h1 class="text-center my-5">Videos</h1>
+    <div class="row">
+      {% for video in videos %}
+        <div class="col-md-6 col-lg-4 mb-5">
+          <div class="card">
+            <a href = "{% url 'video_detail' video.pk %}">ああああ</a>
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="{{ video.url }}" allowfullscreen></iframe>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{ video.title }}</h5>
+                <p class="card-text">{{ video.description }}</p>
+                <p class="card-text"><small class="text-muted">Uploaded by <a href="{% url 'user_detail' video.user.pk %}">{{ video.user.username }} on {{ video.uploaded_at }}</a></small></p>
+              </div>
+            
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}

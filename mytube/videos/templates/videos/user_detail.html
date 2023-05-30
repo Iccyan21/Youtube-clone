@@ -1,0 +1,9 @@
+{% extends 'videos/base.html' %}
+
+{% block title %}User Detail{% endblock %}
+
+{% block content %}
+  <h1>{{ user.username }}</h1>
+  <h2>Videos</h2>
+  {% include 'videos/video_list.html' with videos=videos %}
+{% endblock %}
